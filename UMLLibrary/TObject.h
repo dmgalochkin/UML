@@ -2,12 +2,13 @@
 template<class T, int dim>
 class TObject
 {
-private:
+protected:
   T coords[dim];
   int color;
-
+public:
   TObject();
   TObject(const T coords_[], int color_ = 0);
+  TObject(const TObject& p);
   ~TObject();
 
   int GetDim() const;
@@ -39,6 +40,22 @@ TObject<T, dim>::TObject(const T* coords_, int color_)
 }
 
 template<class T, int dim>
+TObject<T, dim>::TObject(const TObject& p)
+{
+  for (int i = 0; i < dim; ++i)
+  {
+    coords[i] = p.coords[i];
+  }
+  color = p.color;
+}
+
+template<class T, int dim>
+TObject<T, dim>::~TObject()
+{
+
+}
+
+template<class T, int dim>
 int TObject<T, dim>::GetDim() const
 {
   return dim;
@@ -54,4 +71,18 @@ template<class T, int dim>
 int TObject<T, dim>::GetColor() const
 {
   return color;
+}
+
+template<class T, int dim>
+void TObject<T, dim>::SetCoords(const int coords_[])
+{
+  for (int i = 0; i < dim; ++i)
+  {
+    coords[i] = coords_[i];
+  }
+}
+template<class T, int dim>
+void TObject<T, dim>::SetColor(const int color_)
+{
+  color = color_;
 }
