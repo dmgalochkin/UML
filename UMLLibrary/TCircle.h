@@ -1,3 +1,4 @@
+#pragma once
 #include "TObject.h"
 #include "TException.h"
 
