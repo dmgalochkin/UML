@@ -5,7 +5,6 @@ class TUML
 protected:
   TString caption;
 public:
-  TUML();
   TUML(const TString& caption_ = TString());
   TUML(const TUML& p);
   ~TUML();

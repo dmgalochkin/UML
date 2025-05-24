@@ -23,6 +23,7 @@ public:
   TString& operator= (const char* str);
 
   bool operator== (const TString & p);
+  bool operator==(const char* str);
   bool operator!= (const TString & p);
   bool operator< (const TString & p);
   bool operator> (const TString & p);

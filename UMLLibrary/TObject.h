@@ -10,21 +10,24 @@ protected:
   T coords[dim];
   int color;
   TString name;
+  int id;
 public:
-  TObject();
-  TObject(const T coords_[], const int color_ = 0,
+  TObject(const int id_);
+  TObject(const int id_, const T coords_[], const int color_ = 0,
           const TString& name_ = "Object", const TString& caption_ = "");
-  TObject(const TObject& p);
+  TObject(const int id_, const TObject& p);
   ~TObject();
 
+  int GetId() const;
   int GetDim() const;
-  T* GetCoords() const;
+  T* GetCoords();
   int GetColor() const;
   TString GetName();
+  virtual T GetArea() const;
 
   void SetCoords(const int coords_[]);
   void SetColor(const int color_);
-  TString SetName(const TString& name_);
+  void SetName(const TString& name_);
 
   // template<class I, int dim_>
   // friend std::istream& operator>>(std::istream& i, TObject<I, dim_>& p);
@@ -32,6 +35,18 @@ public:
   template<class O, int dim_>
   friend std::ostream& operator<<(std::ostream& o, TObject<O, dim_>& p);
 };
+
+template<class T, int dim>
+T TObject<T, dim>::GetArea() const
+{
+  return 0;
+}
+
+template<class T, int dim>
+int TObject<T, dim>::GetId() const
+{
+  return id;
+}
 
 template<class O, int dim_>
 std::ostream& operator<<(std::ostream &o, TObject<O, dim_>& p)
@@ -44,27 +59,30 @@ std::ostream& operator<<(std::ostream &o, TObject<O, dim_>& p)
 }
 
 template<class T, int dim>
-TObject<T, dim>::TObject()
+TObject<T, dim>::TObject(int id_)
 {
   for (int i = 0; i < dim; ++i)
   {
     coords[i] = 0;
   }
   color = 0;
+  id = id_;
 }
 
 template<class T, int dim>
-TObject<T, dim>::TObject(const T coords_[], const int color_,
+TObject<T, dim>::TObject(const int id_, const T coords_[], const int color_,
         const TString& name_, const TString& caption_) : TUML(caption_) {
   for (int i = 0; i < dim; ++i)
   {
     coords[i] = coords_[i];
   }
+  name = name_;
   color = color_;
+  id = id_;
 }
 
 template<class T, int dim>
-TObject<T, dim>::TObject(const TObject& p) : TUML(p)
+TObject<T, dim>::TObject(int id_, const TObject& p) : TUML(p)
 {
   for (int i = 0; i < dim; ++i)
   {
@@ -72,6 +90,7 @@ TObject<T, dim>::TObject(const TObject& p) : TUML(p)
   }
   color = p.color;
   name = p.name;
+  id = id_;
 }
 
 template<class T, int dim>
@@ -87,7 +106,7 @@ int TObject<T, dim>::GetDim() const
 }
 
 template<class T, int dim>
-T* TObject<T, dim>::GetCoords() const
+T* TObject<T, dim>::GetCoords()
 {
   return coords;
 }
@@ -105,7 +124,7 @@ TString TObject<T, dim>::GetName()
 }
 
 template<class T, int dim>
-TString TObject<T, dim>::SetName(const TString& name_)
+void TObject<T, dim>::SetName(const TString& name_)
 {
   name = name_;
 }

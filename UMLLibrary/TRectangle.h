@@ -11,37 +11,45 @@ protected:
   T width;
   T height;
 public:
-  TRectangle();
-  TRectangle(const T* coords_, const int color_ = 0,
+  TRectangle(const int id_);
+  TRectangle(const int id_, const T* coords_, const int color_ = 0,
              const T width_ = 0, const T height_ = 0,
              const TString& name_ = "Rectangle", const TString& caption_ = "");
-  TRectangle(const TRectangle& p);
+  TRectangle(const int id_, const TRectangle& p);
   ~TRectangle();
   T GetWidth() const;
   T GetHeight() const;
+  T GetArea() const;
+
   void SetWidth(const T width_) const;
   void SetHeight(const T height_) const;
 };
 
 template<class T>
-TRectangle<T>::TRectangle() : TObject<T, 2>::TObject()
+T TRectangle<T>::GetArea() const
+{
+  return width * height;
+}
+
+template<class T>
+TRectangle<T>::TRectangle(const int id_) : TObject<T, 2>::TObject(id_)
 {
   width = 0;
   height = 0;
 }
 
 template<class T>
-TRectangle<T>::TRectangle(const T *coords_, const int color_,
+TRectangle<T>::TRectangle(const int id_, const T *coords_, const int color_,
                           const T width_, const T height_,
                           const TString& name_, const TString& caption_)
-                          : TObject<T, 2>::TObject(coords_, color_, name_, caption_)
+                          : TObject<T, 2>::TObject(id_, coords_, color_, name_, caption_)
 {
   width = width_;
   height = height_;
 }
 
 template<class T>
-TRectangle<T>::TRectangle(const TRectangle<T> &p) : TObject<T, 2>::TObject(p)
+TRectangle<T>::TRectangle(const int id_, const TRectangle<T>& p) : TObject<T, 2>::TObject(id_, p)
 {
   width = p.width;
   height = p.height;

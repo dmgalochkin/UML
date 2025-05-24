@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include "TObject.h"
 #include "TException.h"
 
@@ -10,33 +11,40 @@ class TCircle : public TObject<T, 2>
 protected:
   T radius;
 public:
-  TCircle();
-  TCircle(const T* coords_, const int color_ = 0,
+  TCircle(const int id_);
+  TCircle(const int id_, const T* coords_, const int color_ = 0,
            const T radius_ = 0,
            const TString& name_ = "Circle", const TString& caption_ = "");
-  TCircle(const TCircle& p);
+  TCircle(const int id_, const TCircle& p);
   ~TCircle();
   T GetRadius() const;
+  T GetArea() const;
   void SetRadius(const T radius_) const;
 };
 
 template<class T>
-TCircle<T>::TCircle() : TObject<T, 2>::TObject()
+T TCircle<T>::GetArea() const
+{
+  return M_PI * radius * radius;
+}
+
+template<class T>
+TCircle<T>::TCircle(const int id_) : TObject<T, 2>::TObject(id_)
 {
   radius = 0;
 }
 
 template<class T>
-TCircle<T>::TCircle(const T *coords_, const int color_,
+TCircle<T>::TCircle(const int id_, const T *coords_, const int color_,
                       const T radius_,
                       const TString& name_, const TString& caption_)
-     : TObject<T, 2>::TObject(coords_, color_, name_, caption_)
+     : TObject<T, 2>::TObject(id_, coords_, color_, name_, caption_)
 {
   radius = radius_;
 }
 
 template<class T>
-TCircle<T>::TCircle(const TCircle<T> &p) : TObject<T, 2>::TObject(p)
+TCircle<T>::TCircle(const int id_, const TCircle<T>& p) : TObject<T, 2>::TObject(id_, p)
 {
   radius = p.radius;
 }

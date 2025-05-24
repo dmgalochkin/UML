@@ -150,6 +150,11 @@ bool TString::operator==(const TString &p)
   return true;
 }
 
+bool TString::operator==(const char* str)
+{
+  return TString::operator==(TString(str));
+}
+
 bool TString::operator!=(const TString &p)
 {
   return !(*this == p);
