@@ -26,6 +26,7 @@ public:
   int GetSize();
   int ReserveId();
   void Add(TObject<T, 2>* obj);
+  void Delete(const int id);
   void ShowRelationships();
   void Show(const int id);
   void Show(const std::vector<int> ids);
@@ -72,27 +73,56 @@ void TContainer<T>::Add(TObject<T, 2> *obj)
 }
 
 template<class T>
+void TContainer<T>::Delete(const int id)
+{
+  bool find = false;
+  for (int i = 0; i < objects.size(); ++i)
+  {
+    if (objects[i]->GetId() == id)
+      find = true;
+  }
+
+
+  if (!find)
+    throw_exception("Can't find object with this id");
+
+  for (int i = 0; i < objects.size(); ++i)
+  {
+    if (objects[i]->GetId() == id)
+    {
+      std::swap(objects[i], objects.back());
+    }
+  }
+  delete objects.back();
+  objects.pop_back();
+}
+
+template<class T>
 TObject<T, 2>*& TContainer<T>::operator[](int index)
 {
+
+  if (index < 0 || index >= objects.size())
+    throw_exception("Out of bounds");
   return objects[index];
 }
 
 template<class T>
 void TContainer<T>::ShowRelationships()
 {
+  std::cout << '\n';
   for (int i = 0; i < relationships.size(); ++i) {
     std::cout << relationships[i] << ' ';
   }
-  std::cout << '\n';
   std::cout << '\n';
 }
 
 template<class T>
 void TContainer<T>::Show(const int id)
 {
+  std::cout << '\n';
   for (int i = 0; i < objects.size(); ++i) {
     if (objects[i]->GetId() == id)
-      std::cout << *(objects[i]) << ' ';
+      std::cout << *(objects[i]) << '\n';
   }
   std::cout << '\n';
 }
@@ -100,9 +130,10 @@ void TContainer<T>::Show(const int id)
 template<class T>
 void TContainer<T>::Show(const std::vector<int> ids)
 {
+  std::cout << '\n';
   for (int i = 0; i < objects.size(); ++i) {
     if (std::find(ids.begin(), ids.end(), objects[i]->GetId()) != ids.end())
-      std::cout << *(objects[i]) << ' ';
+      std::cout << *(objects[i]) << '\n';
   }
   std::cout << '\n';
 }

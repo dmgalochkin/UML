@@ -24,17 +24,21 @@ public:
   int GetColor() const;
   TString GetName();
   virtual T GetArea() const;
+  virtual TString GetType() const;
 
   void SetCoords(const int coords_[]);
   void SetColor(const int color_);
   void SetName(const TString& name_);
 
-  // template<class I, int dim_>
-  // friend std::istream& operator>>(std::istream& i, TObject<I, dim_>& p);
-
   template<class O, int dim_>
   friend std::ostream& operator<<(std::ostream& o, TObject<O, dim_>& p);
 };
+
+template<class T, int dim>
+TString TObject<T, dim>::GetType() const
+{
+  return "Object";
+}
 
 template<class T, int dim>
 T TObject<T, dim>::GetArea() const
@@ -51,10 +55,14 @@ int TObject<T, dim>::GetId() const
 template<class O, int dim_>
 std::ostream& operator<<(std::ostream &o, TObject<O, dim_>& p)
 {
-  o << p.name << '\n';
+  o << '\n';
+  o << p.GetType() << ' ' << p.name << '\n';
+  std::cout << "Id: " << p.GetId() << '\n';
+  std::cout << "Coordinates: ";
   for (int i = 0; i < dim_; ++i)
     o << p.coords[i] << ' ';
   o << '\n';
+
   return o;
 }
 

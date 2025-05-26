@@ -5,7 +5,8 @@
 enum class TRelationType
 {
   Association, DirectedAssociation, ReflexiveAssociation,
-  Multiplicity, Aggregation, Composition, Inheritance, Realization
+  Multiplicity, Aggregation, Composition, Inheritance, Realization,
+  Arrow
 };
 
 class TRelationship : public TUML

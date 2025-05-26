@@ -20,10 +20,17 @@ public:
   T GetWidth() const;
   T GetHeight() const;
   T GetArea() const;
+  TString GetType() const;
 
   void SetWidth(const T width_) const;
   void SetHeight(const T height_) const;
 };
+
+template<class T>
+TString TRectangle<T>::GetType() const
+{
+  return "Rectangle";
+}
 
 template<class T>
 T TRectangle<T>::GetArea() const

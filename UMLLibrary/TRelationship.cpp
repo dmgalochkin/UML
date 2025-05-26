@@ -56,6 +56,9 @@ std::ostream &operator<<(std::ostream &o, const TRelationship &p)
     case TRelationType::Realization:
       o << "Realization";
       break;
+    case TRelationType::Arrow:
+      o << "Arrow";
+      break;
   }
   return o;
 }

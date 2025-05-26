@@ -32,7 +32,7 @@ public:
 
   char& operator[] (int i) const;
 
-  friend std::ostream& operator<<(std::ostream& o, TString& p);
+  friend std::ostream& operator<<(std::ostream& o, TString p);
   friend std::istream& operator>>(std::istream& i, TString& p);
 
   int FindChar(char c);

@@ -192,7 +192,7 @@ bool TString::operator>(const TString &p)
     return false;
 }
 
-std::ostream& operator<<(std::ostream& o, TString& p)
+std::ostream& operator<<(std::ostream& o, TString p)
 {
   for (int i = 0; i < p.size; ++i)
   {

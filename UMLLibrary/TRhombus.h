@@ -20,9 +20,16 @@ public:
   T GetHorizontalDiagonal() const;
   T GetVerticalDiagonal() const;
   T GetArea() const;
+  TString GetType() const;
   void SetHorizontalDiagonal(const T horizontalDiagonal_) const;
   void SetVerticalDiagonal(const T verticalDiagonal_) const;
 };
+
+template<class T>
+TString TRhombus<T>::GetType() const
+{
+  return "Rhombus";
+}
 
 template<class T>
 T TRhombus<T>::GetArea() const

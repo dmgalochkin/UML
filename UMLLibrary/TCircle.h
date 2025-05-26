@@ -19,8 +19,15 @@ public:
   ~TCircle();
   T GetRadius() const;
   T GetArea() const;
+  TString GetType() const;
   void SetRadius(const T radius_) const;
 };
+
+template<class T>
+TString TCircle<T>::GetType() const
+{
+  return "Circle";
+}
 
 template<class T>
 T TCircle<T>::GetArea() const
