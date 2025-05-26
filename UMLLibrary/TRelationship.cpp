@@ -60,6 +60,7 @@ std::ostream &operator<<(std::ostream &o, const TRelationship &p)
       o << "Arrow";
       break;
   }
+  o << '\n';
   return o;
 }
 
